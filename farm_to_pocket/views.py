@@ -12,3 +12,12 @@ def callback(request):
         phoneNumber = request.POST.get('phoneNumber')
         text = request.POST.get('text')
         now = datetime.datetime.now()
+
+        textList = text.split('*')
+        userResponse = textList[-1].strip()
+
+        try:
+            session = User.objects.get(phonenumber=phoneNumber)
+            level = session.level
+        except User.DoesNotExist as e:
+            
