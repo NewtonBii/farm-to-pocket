@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
+from .AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
 from .config import username, apikey
 from django.views.decorators.csrf import csrf_exempt
 from .models import User, session_levels
@@ -24,7 +24,7 @@ def callback(request):
 
         # Serve basic menu
         if level == 0 or level == 1:
-            if userResponse == '';
+            if userResponse == '':
                 if level == 0:
                     session_level1 = User.objects.get(phonenumber=phoneNumber)
                     session_level1.level = 1
