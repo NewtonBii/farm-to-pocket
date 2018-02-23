@@ -20,7 +20,9 @@ def callback(request):
         userResponse = textList[-1].strip()
 
         if userResponse == "":
-            response = "CON Welcome to our Service"
+            response = "CON Welcome to our Service. Are you a buyer or a seller"
+            response += "1. Buyer"
+            response += "2. Seller"
             return HttpResponse(response, content_type='text/plain')
     return render(request, 'index.html')
     #     if userResponse == "":
