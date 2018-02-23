@@ -24,6 +24,12 @@ def callback(request):
             response += "1. Buyer\n"
             response += "2. Seller\n"
             return HttpResponse(response, content_type='text/plain')
+        if userResponse == "0":
+            response = "END Thank you for using the service"
+            return HttpResponse(response, content_type='text/plain')
+        if userResponse == "1":
+            response = "CON Enter your name:\n"
+            return HttpResponse(response, content_type='text/plain')
     return render(request, 'index.html')
     #     if userResponse == "":
     #         session_level1 = User.objects.get(phonenumber=phoneNumber)
