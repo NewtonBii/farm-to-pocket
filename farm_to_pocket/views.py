@@ -26,9 +26,13 @@ def callback(request):
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "1":
             response = "CON Enter your name:\n"
+            return render(response, content_type='text/plain')
             response = "CON Enter your location\n"
+            return render(response, content_type='text/plain')
             response = "CON What do you want to buy?\n"
+            return render(response, content_type='text/plain')
             response = "CON How much are you willing to offer?\n"
+            return render(response, content_type='text/plain')
             response = "END You response has been saved. We will send you a list of farmers you can contact."
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "2":
