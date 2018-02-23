@@ -19,8 +19,6 @@ def callback(request):
         textList = text.split('*')
         userResponse = textList[-1].strip()
 
-        result, created = User.objects.get_or_create(phonenumber=phoneNumber)
-
         if userResponse == "":
             response = "CON Welcome to our Service. Are you a buyer or a seller?\n"
             response += "1. Buyer\n"
@@ -29,4 +27,6 @@ def callback(request):
         if userResponse == "1":
             response = "CON Enter your name:\n"
             return HttpResponse(response, content_type='text/plain')
+        if userResponse == "2":
+            response = "CON Enter your name:\n"
     return render(request, 'index.html')
