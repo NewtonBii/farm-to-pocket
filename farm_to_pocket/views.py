@@ -19,7 +19,7 @@ def callback(request):
         textList = text.split('*')
         userResponse = textList[-1].strip()
 
-        result, created = User.objects.get_or_create(phonenumber=phoneNumber)
+        # result, created = User.objects.get_or_create(phonenumber=phoneNumber)
 
         if userResponse == "":
             response = "CON Welcome to our Service. Are you a buyer or a seller?\n"
