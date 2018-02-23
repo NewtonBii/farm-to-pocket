@@ -19,11 +19,7 @@ def callback(request):
         textList = text.split('*')
         userResponse = textList[-1].strip()
 
-        try:
-            result, created = User.objects.get_or_create(phonenumber=phoneNumber)
-            
-            if created:
-                result.save()
+        result, created = User.objects.get_or_create(phonenumber=phoneNumber)
 
         if userResponse == "":
             response = "CON Welcome to our Service. Are you a buyer or a seller?\n"
@@ -31,6 +27,18 @@ def callback(request):
             response += "2. Seller\n"
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "1":
-            response = "CON Enter your name:\n"
-            return HttpResponse(response, content_type='text/plain')
+            if created:
+                result.save()
+                response = "CON Enter your name:\n"
+                return HttpResponse(response, content_type='text/plain')
+            if not created:
+                if not result.name:
+                    result.name = userResponse
+                    result.save()
+
+                    response = "CON Enter your location"
+                    return render(response, content_type='text/plain')
+                if not result.location:
+                    result.location = userResponse
+                    result.save()
     return render(request, 'index.html')
