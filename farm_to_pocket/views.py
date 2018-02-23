@@ -27,7 +27,6 @@ def callback(request):
             response += "2. Seller\n"
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "1":
-            result.save()
             response = "CON Enter your name:\n"
             return HttpResponse(response, content_type='text/plain')
     return render(request, 'index.html')
