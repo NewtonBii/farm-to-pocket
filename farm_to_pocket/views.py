@@ -20,44 +20,48 @@ def callback(request):
         userResponse = textList[-1].strip()
 
         if userResponse == "":
-            session_level1 = User.objects.get(phonenumber=phoneNumber)
-            session_level1.level=1
-            session_level1.save()
-            #Serve the options menu
-            response = "CON Welcome to FarmerService. Are you buying or selling?\n"
-            response += "1. Buyer. \n"
-            response += "2. Seller. \n"
-
+            response = "CON Welcome to our Service"
             return HttpResponse(response, content_type='text/plain')
-
-        if userResponse == '0':
-            if level == 0:
-                #7b.Graduate user to next level and serve main menu
-                session1 = session_levels(session_id=sessionId, phoneNumber=phoneNumber, level=1)
-                session1.save()
-                # Serve the options menu
-                response = "CON Welcome to FarmerService. Are you buying or selling?\n"
-                response += "1. Buyer. \n"
-                response += "2. Seller. \n"
-
-                return HttpResponse(response, content_type='text/plain')
-
-        if userResponse == "":
-            if level == 1:
-                #7b.Graduate user to next level and serve main menu
-                session_level1 = User.objects.get(phonenumber=phoneNumber)
-                session_level1.level=1
-                session_level1.save()
-                #Serve the options menu
-                response = "CON Welcome to FarmerService. Are you buying or selling?\n"
-                response += "1. Buyer. \n"
-                response += "2. Seller. \n"
-
-                return HttpResponse(response, content_type='text/plain')
-        if userResponse == '1':
-            if level == 1:
-
-
-                return HttpResponse(response, content_type='text/plain')
-    else:
-        print('pass')
+    return render(request, 'index.html')
+    #     if userResponse == "":
+    #         session_level1 = User.objects.get(phonenumber=phoneNumber)
+    #         session_level1.level=1
+    #         session_level1.save()
+    #         #Serve the options menu
+    #         response = "CON Welcome to FarmerService. Are you buying or selling?\n"
+    #         response += "1. Buyer. \n"
+    #         response += "2. Seller. \n"
+    #
+    #         return HttpResponse('<h1>response</h1>', content_type='text/plain')
+    #
+    #     if userResponse == '0':
+    #         if level == 0:
+    #             #7b.Graduate user to next level and serve main menu
+    #             session1 = session_levels(session_id=sessionId, phoneNumber=phoneNumber, level=1)
+    #             session1.save()
+    #             # Serve the options menu
+    #             response = "CON Welcome to FarmerService. Are you buying or selling?\n"
+    #             response += "1. Buyer. \n"
+    #             response += "2. Seller. \n"
+    #
+    #             return HttpResponse('<h1>response</h1>', content_type='text/plain')
+    #
+    #     if userResponse == "":
+    #         if level == 1:
+    #             #7b.Graduate user to next level and serve main menu
+    #             session_level1 = User.objects.get(phonenumber=phoneNumber)
+    #             session_level1.level=1
+    #             session_level1.save()
+    #             #Serve the options menu
+    #             response = "CON Welcome to FarmerService. Are you buying or selling?\n"
+    #             response += "1. Buyer. \n"
+    #             response += "2. Seller. \n"
+    #
+    #             return HttpResponse('<h1>response</h1>', content_type='text/plain')
+    #     if userResponse == '1':
+    #         if level == 1:
+    #
+    #
+    #             return HttpResponse('<h1>response</h1>', content_type='text/plain')
+    # else:
+    #     print('pass')
