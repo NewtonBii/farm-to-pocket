@@ -27,18 +27,7 @@ def callback(request):
             response += "2. Seller\n"
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "1":
-            if created:
-                result.save()
-                response = "CON Enter your name:\n"
-                return HttpResponse(response, content_type='text/plain')
-            # if not created:
-            #     if not result.name:
-            #         result.name = userResponse
-            #         result.save()
-            #
-            #         response = "CON Enter your location"
-            #         return render(response, content_type='text/plain')
-            #     if not result.location:
-            #         result.location = userResponse
-            #         result.save()
+            result.save()
+            response = "CON Enter your name:\n"
+            return HttpResponse(response, content_type='text/plain')
     return render(request, 'index.html')
