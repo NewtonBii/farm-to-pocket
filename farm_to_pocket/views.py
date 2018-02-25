@@ -19,12 +19,12 @@ def callback(request):
 
         textList = text.split('*')
         userResponse = textList[-1].strip()
-        
-        try:
-            session = User.objects.get(phonenumber=phoneNumber)
-            level = session.level
-        except User.DoesNotExist as e:
-            level = 0
+
+        # try:
+        #     session = User.objects.get(phonenumber=phoneNumber)
+        #     level = session.level
+        # except User.DoesNotExist as e:
+        #     level = 0
 
         if userResponse == "":
             response = "CON Welcome to our Service. Are you a buyer or a seller?\n"
