@@ -33,10 +33,6 @@ def callback(request):
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "1":
             response = "CON Enter your name:\n"
-            if userResponse:
-                response = "CON Enter your location\n"
-                return render(response, content_type='text/plain')
-
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "2":
             response = "CON Enter your name:\n"
