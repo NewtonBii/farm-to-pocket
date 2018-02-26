@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-      url(r'ussd/',views.callback, name = 'callback'),
+      url(r'^$',views.callback, name = 'callback'),
     ]
