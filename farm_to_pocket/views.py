@@ -36,8 +36,19 @@ def callback(request):
             response += "2. Seller\n"
             return HttpResponse(response, content_type='text/plain')
         if userResponse == "1":
-            response = "CON Enter your name:\n"
-            return HttpResponse(response, content_type='text/plain')
+            created,result = User.objects.get_or_create(phonenumber=phoneNumber)
+            if created:
+                result.save()
+                response = "CON Enter your name:\n"
+                return render(response, content_type='text/plain')
+            if not created:
+                if not result.name:
+                    result.name = userResponse
+                    result.save()
+
+                    response = "CON Where do you live?\n"
+                    return render(response, content_type='text/plain')
+                    
         if userResponse == "2":
             response = "CON Enter your name:\n"
     return render(request, 'index.html')
