@@ -9,6 +9,7 @@ from django.http import HttpResponse
 # Create your views here.
 @csrf_exempt
 def callback(request):
+    """Function that handles callback from Afric Stalking API"""
 
     if request.method == 'POST' and request.POST:
         sessionId = request.POST.get('sessionId')
@@ -20,20 +21,21 @@ def callback(request):
         textList = text.split('*')
         userResponse = textList[-1].strip()
 
-        # try:
-        #     session = User.objects.get(phonenumber=phoneNumber)
-        #     level = session.level
-        # except User.DoesNotExist as e:
-        #     level = 0
 
-        if userResponse == "":
-            response = "CON Welcome to our Service. Are you a buyer or a seller?\n"
-            response += "1. Buyer\n"
-            response += "2. Seller\n"
-            return HttpResponse(response, content_type='text/plain')
-        if userResponse == "1":
-            response = "CON Enter your name:\n"
-            return HttpResponse(response, content_type='text/plain')
-        if userResponse == "2":
-            response = "CON Enter your name:\n"
+        session = session_levels.objects.filter_by(session_id=session_id).first()
+        user = User.objects.filter_by(phonenumber=phonenumber).first()
+        if user:
+            if session:
+                level = session.level
+                if level == 0:
+                    if userResponse == "":
+                        response = "CON Welcome to our Service. Are you a buyer or a seller?\n"
+                        response += "1. Buyer\n"
+                        response += "2. Seller\n"
+                        return HttpResponse(response, content_type='text/plain')
+                    if userResponse == "1":
+                        response = "CON Enter your name:\n"
+                        return HttpResponse(response, content_type='text/plain')
+                    if userResponse == "2":
+                        response = "CON Enter your name:\n"
     return render(request, 'index.html')
