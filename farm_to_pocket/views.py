@@ -22,8 +22,8 @@ def callback(request):
         userResponse = textList[-1].strip()
 
 
-        session = session_levels.objects.filter_by(session_id=session_id).first()
-        user = User.objects.filter_by(phonenumber=phonenumber).first()
+        session = session_levels.objects.get.filter_by(session_id=session_id).first()
+        user = User.objects.get.filter_by(phonenumber=phonenumber).first()
         if user:
             if session:
                 level = session.level
