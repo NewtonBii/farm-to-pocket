@@ -38,7 +38,7 @@ def callback(request):
         if userResponse == "1":
             response = "CON Enter your name:\n"
             return HttpResponse(response, content_type='text/plain')
-
+        if  isinstance(userResponse,str):
             response = "CON Where do you live?\n"
             return HttpResponse(response, content_type='text/plain')
 
