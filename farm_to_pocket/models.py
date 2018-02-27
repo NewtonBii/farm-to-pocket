@@ -9,7 +9,7 @@ class Buyer(models.Model):
     nearest_town = models.CharField(max_length=50)
     product = models.CharField(max_length=50)
     quantity = models.CharField(max_length=50)
-    price = models.IntegerField()
+    price = models.CharField(max_length=50,null=True)
     availability = models.CharField(max_length=50)
 
 class Seller(models.Model):
@@ -21,8 +21,8 @@ class Seller(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    quantity = models.IntegerField()
-    price = models.IntegerField()
+    quantity = models.IntegerField(null=True)
+    price = models.IntegerField(null=True)
     seller = models.ForeignKey(Seller)
     availability = models.CharField(max_length=50)
 
