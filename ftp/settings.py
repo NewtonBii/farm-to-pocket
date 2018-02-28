@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'farm_to_pocket.apps.FarmToPocketConfig'
+    'farm_to_pocket.apps.FarmToPocketConfig',
+    'bootstrap3'
 ]
 
 MIDDLEWARE = [
