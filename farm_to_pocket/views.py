@@ -90,7 +90,7 @@ def callback(request):
             apiKey = apikey1
 
             to = phoneNumber
-            message = 'Thank you for using our services.' \
+            message = 'Thank you '+ user.name+ ' for using our services.' \
                       'This is your entry:\n' \
                       'Product Name: '+ textList[4] + '\n' \
                       ' Quantity: '+ textList[5] + '\n' \

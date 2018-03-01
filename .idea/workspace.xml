@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ebe45f7-9f08-4867-94ef-884efc68c965" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/farm_to_pocket/views.py" afterPath="$PROJECT_DIR$/farm_to_pocket/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +19,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/farm_to_pocket/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="98" column="105" lean-forward="false" selection-start-line="98" selection-start-column="105" selection-end-line="98" selection-end-column="105" />
+            <state relative-caret-position="288">
+              <caret line="92" column="54" lean-forward="true" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -325,8 +324,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/farm_to_pocket/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="98" column="105" lean-forward="false" selection-start-line="98" selection-start-column="105" selection-end-line="98" selection-end-column="105" />
+        <state relative-caret-position="288">
+          <caret line="92" column="54" lean-forward="true" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
