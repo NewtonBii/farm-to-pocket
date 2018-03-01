@@ -84,13 +84,19 @@ def callback(request):
             session_level7.level=7
             product = Product.objects.create(name=textList[4], quantity=textList[5], price=textList[6], user=user)
             product.save()
-            response = "END Your request has been recieved. \n We will send you a message with contact details of a buyer/seller that matches your request."
+            response = "END Your request has been received. \n We will send you a message with contact details of a buyer/seller that matches your request."
 
             username = username1
             apiKey = apikey1
 
             to = phoneNumber
-            message = 'Your Request has Been Recieved'
+            message = 'Thank you for using our services.' \
+                      'This is your entry:\n' \
+                      'Product Name: '+ textList[4] + '\n' \
+                      ' Quantity: '+ textList[5] + '\n' \
+                      'Price: ' + textList[6] + '\n' \
+                      'If this entry is accurate, we will send you information matching your query.\n' \
+                                                'If you would like to make another entry dial *384*10446#'
 
             gateway = AfricasTalkingGateway(username, apiKey)
 
