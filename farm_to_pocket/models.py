@@ -14,10 +14,8 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     quantity = models.IntegerField(null=True)
     price = models.IntegerField(null=True)
-    user = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
-    availability = models.CharField(max_length=50)
-
-
+    user = models.ForeignKey(User, null=True, on_delete = models.CASCADE)
+    availability = models.CharField(max_length=50, null=True)
 
 class session_levels(models.Model):
 	  session_id = models.CharField(max_length=25,primary_key=True)

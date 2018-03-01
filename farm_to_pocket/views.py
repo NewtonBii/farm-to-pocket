@@ -49,7 +49,7 @@ def callback(request):
             session_level2.level=2
             session_level2.name = userResponse
             session_level2.save()
-            response = "CON Which is your county? \n e.g. Nairobi, Uasin Gishu, Machakos\n"
+            response = "CON Which is your county? e.g.\n  Nairobi\n Uasin Gishu\n Machakos\ne.t.c ..."
             return HttpResponse(response, content_type='text/plain')
         if level == 2:
             session_level3 = User.objects.get(phonenumber = phoneNumber)
