@@ -60,9 +60,7 @@ def get_phonenumbers(final_list):
     Method that takes in a list of objects and returns the phonenumbers of the
     users associated with those products as a string
     '''
-    phonenumbers=''
-    for product in final_list:
-        phonenumbers+=(product.user.phonenumber)+','
+    phonenumbers={ product.user.name:product.user.phonenumber for product in final_list }
     return phonenumbers
 
 
