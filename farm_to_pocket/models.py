@@ -10,6 +10,9 @@ class User(models.Model):
     location = models.CharField(max_length=50)
     nearest_town = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
     @classmethod
     def requested_users(cls,user_type):
         '''
@@ -19,6 +22,9 @@ class User(models.Model):
             requested_type = 2
         else:
             requested_type = 1
+
+        found_users = User.objects.filter(type_of_user = requested_type )
+        return found_users 
         
 
 
@@ -28,7 +34,12 @@ class Product(models.Model):
     price = models.IntegerField(null=True)
     user = models.ForeignKey(User, null=True, on_delete = models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 class session_levels(models.Model):
 	session_id = models.CharField(max_length=25,primary_key=True)
 	phonenumber= models.CharField(max_length=25,null=True)
 	level = models.IntegerField(null=True)
+
+

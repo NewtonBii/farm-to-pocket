@@ -114,6 +114,7 @@ def callback(request):
 
 
 def index(request):
-    Users = User.objects.all()
+    requsted_users = User.requested_users(2)
 
-    return render(request, 'index.html', {'Users':Users})
+
+    return render(request, 'test.html', {'users':requsted_users})
