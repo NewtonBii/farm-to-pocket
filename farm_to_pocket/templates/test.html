@@ -25,3 +25,9 @@
 {% for product in list_town %}
 <h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
 {%endfor%}
+
+<hr>
+<h3>List of final products after filtering</h3>
+{% for product in results_list %}
+<h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
+{%endfor%}

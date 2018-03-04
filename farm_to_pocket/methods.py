@@ -40,6 +40,22 @@ def requested_location(location,list_price):
             list_location.append(product)
     return list_location
 
+def final_list(filtered_products,list_price,list_location,list_town):
+    '''
+    Method that add all the list and truncates the products based on priority in terms of price,town 
+    and location  in that order
+    '''
+    final_list=list_town
+    if len(final_list)<5:
+        final_list+= [product for product in list_location if product not in list_town]
+        if len(final_list)<5:
+            final_list += [product for product in list_price if product not in final_list]
+            if len(final_list) <5:
+                final_list += [product for product in filtered_products if product not in final_list]
+        
+    return final_list
+
+
 
 
 

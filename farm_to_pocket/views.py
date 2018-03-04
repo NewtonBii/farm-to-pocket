@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Product, session_levels
 import datetime
 from django.http import HttpResponse
-from .methods import requested_price, requested_town,requested_location
+from .methods import requested_price, requested_town,requested_location,final_list
 
 # Create your views here.
 @csrf_exempt
@@ -133,7 +133,9 @@ def index(request):
 
     list_location = requested_location('Nairobi',list_price)
 
+    # this is the final list that always returns atleast three products based on availability of those products
+
+    results_list = final_list(filtered_products,list_price,list_location,list_town)
+
     
-
-
-    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price,"list_town":list_town,"list_location":list_location})
+    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price,"list_town":list_town,"list_location":list_location,"results_list":results_list})
