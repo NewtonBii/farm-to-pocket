@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Product, session_levels
 import datetime
 from django.http import HttpResponse
-from .methods import requested_price
+from .methods import requested_price, requested_town
 
 # Create your views here.
 @csrf_exempt
@@ -126,7 +126,10 @@ def index(request):
     # this is a list of products which satisfy the price requirements of the user
     list_price = requested_price(10,2,filtered_products) 
 
+    # this is a list of products that satisfy the location requirements of the current user
+    list_town = requested_town('Nairobi',list_price)
+
     
 
 
-    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price})
+    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price,"list_town":list_town})

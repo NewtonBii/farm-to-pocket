@@ -3,7 +3,7 @@
 <h3>{{user.name}}</h3>
 {%endfor%}
 <hr>
-<h2>Shows products matching users and the users having those products</h2>
+<h3>Shows products matching users and the users having those products</h3>
 {% for product in filtered_products %}
 <h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
 {%endfor%}
@@ -13,3 +13,9 @@
 {% for product in list_price %}
 <h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
 {% endfor %}
+
+<hr>
+<h3>List of product within nearest town</h3>
+{% for product in list_town %}
+<h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
+{%endfor%}
