@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Product, session_levels
 import datetime
 from django.http import HttpResponse
+from .methods import requested_price
 
 # Create your views here.
 @csrf_exempt
@@ -122,5 +123,10 @@ def index(request):
         if product.user in requsted_users:
             filtered_products.append(product)
 
+    # this is a list of products which satisfy the price requirements of the user
+    list_price = requested_price(10,2,filtered_products) 
 
-    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products})
+    
+
+
+    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price})

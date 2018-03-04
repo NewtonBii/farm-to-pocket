@@ -7,3 +7,9 @@
 {% for product in filtered_products %}
 <h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
 {%endfor%}
+
+<hr>
+<h3> List of product meeting the price requirements</h3>
+{% for product in list_price %}
+<h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
+{% endfor %}
