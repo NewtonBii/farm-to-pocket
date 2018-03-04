@@ -115,6 +115,12 @@ def callback(request):
 
 def index(request):
     requsted_users = User.requested_users(2)
+    requested_products = Product.requested_products('Maize')
+    
+    filtered_products = [] #this is list of products that match the current users requirements but belong to users of a different type from the the current user
+    for product in requested_products:
+        if product.user in requsted_users:
+            filtered_products.append(product)
 
 
-    return render(request, 'test.html', {'users':requsted_users})
+    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products})

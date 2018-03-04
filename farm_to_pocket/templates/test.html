@@ -2,3 +2,8 @@
 {% for user in users%}
 <h3>{{user.name}}</h3>
 {%endfor%}
+<hr>
+<h2>Shows products matching users and the users having those products</h2>
+{% for product in filtered_products %}
+<h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
+{%endfor%}

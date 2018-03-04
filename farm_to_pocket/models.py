@@ -37,6 +37,15 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def requested_products(cls,product):
+        '''
+        Method that finds are returns the required products objects
+        '''
+        found_products = Product.objects.filter(name = product)
+        return found_products
+
+
 class session_levels(models.Model):
 	session_id = models.CharField(max_length=25,primary_key=True)
 	phonenumber= models.CharField(max_length=25,null=True)
