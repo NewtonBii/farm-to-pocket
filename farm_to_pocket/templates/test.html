@@ -15,6 +15,12 @@
 {% endfor %}
 
 <hr>
+<h3>List of product within a users location </h3>
+{% for product in list_location %}
+<h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
+{%endfor%}
+
+<hr>
 <h3>List of product within nearest town</h3>
 {% for product in list_town %}
 <h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>

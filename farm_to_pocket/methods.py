@@ -22,11 +22,21 @@ def requested_price(price,user_type,list_products):
 
 def requested_town(town,list_price):
     '''
-    Method that filters based on the town of the current user and returns a list of users matching that creteria
+    Method that filters based on the nearest town of the current user and returns a list of users matching that creteria
+    '''
+    list_town = []
+    for product in list_price:
+        if product.user.nearest_town == town:
+            list_town.append(product)
+    return list_town
+
+def requested_location(location,list_price):
+    '''
+    Method that filters based on the location of the current user and returns a list of users matching that creteria
     '''
     list_location = []
     for product in list_price:
-        if product.user.nearest_town == town:
+        if product.user.location == location:
             list_location.append(product)
     return list_location
 
