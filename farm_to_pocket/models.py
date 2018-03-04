@@ -10,6 +10,18 @@ class User(models.Model):
     location = models.CharField(max_length=50)
     nearest_town = models.CharField(max_length=50)
 
+    @classmethod
+    def requested_users(cls,user_type):
+        '''
+        Method that gets list of farmers for buyer and vice versa
+        '''
+        if user_type == 1:
+            requested_type = 2
+        else:
+            requested_type = 1
+        
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     quantity = models.IntegerField(null=True)
