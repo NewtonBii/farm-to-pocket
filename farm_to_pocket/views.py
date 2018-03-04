@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Product, session_levels
 import datetime
 from django.http import HttpResponse
-from .methods import requested_price, requested_town,requested_location,final_list
+from .methods import requested_price, requested_town,requested_location,final_list,get_phonenumbers
 
 # Create your views here.
 @csrf_exempt
@@ -137,5 +137,10 @@ def index(request):
 
     results_list = final_list(filtered_products,list_price,list_location,list_town)
 
+    # this is a list of phonenumbers that the current users will get
+
+    found_phonenumbers = get_phonenumbers(results_list)
+
     
-    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price,"list_town":list_town,"list_location":list_location,"results_list":results_list})
+    return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price,"list_town":list_town,"list_location":list_location,"results_list":results_list,
+    "found_phonenumbers":found_phonenumbers})

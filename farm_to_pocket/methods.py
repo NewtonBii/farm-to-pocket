@@ -55,6 +55,18 @@ def final_list(filtered_products,list_price,list_location,list_town):
         
     return final_list
 
+def get_phonenumbers(final_list):
+    '''
+    Method that takes in a list of objects and returns the phonenumbers of the
+    users associated with those products as a string
+    '''
+    phonenumbers=''
+    for product in final_list:
+        phonenumbers+=(product.user.phonenumber)+','
+    return phonenumbers
+
+
+
 
 
 
