@@ -85,41 +85,86 @@ def callback(request):
             product = Product.objects.create(name=textList[4], quantity=textList[5], price=textList[6], user=user)
             product.save()
             response = "END Your request has been received. \n We will send you a message with contact details of a buyer/seller that matches your request."
+            # this are variables to be used by the generate details section
+            current_product = textList[4]
+            current_price = textList[6]
+            current_town = textList[3]
+            current_location = textList[2]
+            current_phonenumber = phoneNumber
+            current_type = textList[1]
 
-            username = username1
-            apiKey = apikey1
+            # this is the message generator section that determines the message that will be sent to the current user
 
-            to = phoneNumber
-            message = 'Thank you '+ user.name+ ' for using our services.' \
-                      'This is your entry:\n' \
-                      'Product Name: '+ textList[4] + '\n' \
-                      ' Quantity: '+ textList[5] + '\n' \
-                      'Price: ' + textList[6] + '\n' \
-                      'If this entry is accurate, we will send you information matching your query.\n' \
-                                                'If you would like to make another entry dial *384*10446#'
+            requsted_users = User.requested_users('2')
+            requested_products = Product.requested_products('Maize')
 
-            gateway = AfricasTalkingGateway(username, apiKey)
+            filtered_products = []  # this is list of products that match the current users requirements but belong to users of a different type from the the current user
+            for product in requested_products:
+                if product.user in requsted_users:
+                    filtered_products.append(product)
 
-            try:
-                # Thats it, hit send and we'll take care of the rest.
+            # this is a list of products which satisfy the price requirements of the user
+            list_price = requested_price(10, 2, filtered_products)
 
-                results = gateway.sendMessage(to, message)
+            # this is a list of products that satisfy the location requirements of the current user
+            list_town = requested_town('Nairobi', list_price)
 
-                for recipient in results:
-                    # status is either "Success" or "error message"
-                    print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
-                                                                        recipient['status'],
-                                                                        recipient['messageId'],
-                                                                        recipient['cost']))
+            # this is a list of products that satisfy the current user's location requirements
 
-            except AfricasTalkingGatewayException as e:
-                print('Encountered an error while sending: %s' % str(e))
+            list_location = requested_location('Nairobi', list_price)
+
+            # this is the final list that always returns atleast three products based on availability of those products
+
+            results_list = final_list(filtered_products, list_price, list_location, list_town)
+
+            # this is a list of phonenumbers that the current users will get
+
+            found_phonenumbers = get_phonenumbers(results_list)
+
+            # these are message details to be sent to the farmer
+
+            message = details_generator(found_phonenumbers)
+            # username = username1
+            # apiKey = apikey1
+            #
+            # to = phoneNumber
+            # message = 'Thank you '+ user.name+ ' for using our services.\n' \
+            #           'This is your entry:\n\n' \
+            #           'Product Name: '+ textList[4] + '\n' \
+            #           'Quantity: '+ textList[5] + '\n' \
+            #           'Price: ' + textList[6] + '\n\n' \
+            #           'If this entry is accurate, we will send you information matching your request.\n' \
+            #                                     'If you would like to make another entry dial. \n*384*10446#'
+            #
+            # gateway = AfricasTalkingGateway(username, apiKey)
+            #
+            # try:
+            #     # That's it, hit send and we'll take care of the rest.
+            #
+            #     results = gateway.sendMessage(to, message)
+            #
+            #     for recipient in results:
+            #         # status is either "Success" or "error message"
+            #         print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
+            #                                                             recipient['status'],
+            #                                                             recipient['messageId'],
+            #                                                             recipient['cost']))
+            #
+            # except AfricasTalkingGatewayException as e:
+            #     print('Encountered an error while sending: %s' % str(e))
 
             return HttpResponse(response, content_type='text/plain')
 
 
 
 def index(request):
-    Users = User.objects.all()
+    products = Product.find_product('banana')
+    buyers = User.find_buyer()
+    sellers = User.find_seller()
 
-    return render(request, 'index.html', {'Users':Users})
+
+    
+
+
+
+    return render(request, 'index.html')
