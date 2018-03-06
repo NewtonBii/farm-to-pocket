@@ -60,7 +60,9 @@ def get_phonenumbers(final_list):
     Method that takes in a list of objects and returns the phonenumbers of the
     users associated with those products as a string
     '''
-    phonenumbers={ product.user.name:[product.user.phonenumber,product.user.location] for product in final_list }
+    phonenumbers={ product.user.name:str(product.user.phonenumber)+','+
+    str(product.user.nearest_town)+','+str(product.user.location)+'@'+
+    str(product.price)+' ' for product in final_list }
     return phonenumbers
 
 def details_generator(found_phonenumbers):
@@ -71,6 +73,10 @@ def details_generator(found_phonenumbers):
     for item in found_phonenumbers:
         string+= item +' '+':'
         string+= found_phonenumbers[item]+','+' '
+
+    for item in found_phonenumbers:
+        details =[]
+
 
     return string
         
