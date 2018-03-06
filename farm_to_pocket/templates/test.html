@@ -19,7 +19,6 @@
 {% for product in list_location %}
 <h3>{{product.name}}:&nbsp;{{product.user.name}}</h3>
 {%endfor%}
-
 <hr>
 <h3>List of product within nearest town</h3>
 {% for product in list_town %}
@@ -34,4 +33,7 @@
 
 <hr>
 <h3>List of phonenumbers the user will recieve</h3>
-{{key}}:&nbsp;{found_phonenumbers}
+<!-- {% for message in messages %}
+{{messages}}
+{%endfor%} -->
+{{messages}}

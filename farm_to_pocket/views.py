@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Product, session_levels
 import datetime
 from django.http import HttpResponse
-from .methods import requested_price, requested_town,requested_location,final_list,get_phonenumbers
+from .methods import requested_price, requested_town,requested_location,final_list,get_phonenumbers,details_generator
 
 # Create your views here.
 @csrf_exempt
@@ -141,6 +141,10 @@ def index(request):
 
     found_phonenumbers = get_phonenumbers(results_list)
 
+    # these are message details to be sent to the farmer
+
+    messages = details_generator(found_phonenumbers)
+
     
     return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price,"list_town":list_town,"list_location":list_location,"results_list":results_list,
-    "found_phonenumbers":found_phonenumbers})
+    "found_phonenumbers":found_phonenumbers,"messages":messages})
