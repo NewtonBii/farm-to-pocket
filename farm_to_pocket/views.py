@@ -87,11 +87,53 @@ def callback(request):
             product.save()
             response = "END Your request has been recieved. \n We will send you a message with contact details of a buyer/seller that matches your request."
 
+
+# this are variables to be used by the generate details section
+            current_product= textList[4]
+            current_price =textList[6]
+            current_town=textList[3]
+            current_location =textList[2]
+            current_phonenumber = phoneNumber 
+            current_type =textList[1]
+
+# this is the message generator section that determines the message that will be sent to the current user           
+
+            requsted_users = User.requested_users(2)
+            requested_products = Product.requested_products('Maize')
+            
+            filtered_products = [] #this is list of products that match the current users requirements but belong to users of a different type from the the current user
+            for product in requested_products:
+                if product.user in requsted_users:
+                    filtered_products.append(product)
+
+            # this is a list of products which satisfy the price requirements of the user
+            list_price = requested_price(10,2,filtered_products) 
+
+            # this is a list of products that satisfy the location requirements of the current user
+            list_town = requested_town('Nairobi',list_price)
+
+            # this is a list of products that satisfy the current user's location requirements
+
+            list_location = requested_location('Nairobi',list_price)
+
+            # this is the final list that always returns atleast three products based on availability of those products
+
+            results_list = final_list(filtered_products,list_price,list_location,list_town)
+
+            # this is a list of phonenumbers that the current users will get
+
+            found_phonenumbers = get_phonenumbers(results_list)
+
+            # these are message details to be sent to the farmer
+
+            message = details_generator(found_phonenumbers)
+
+# this sections grabs details entered by the user and sends them the appropriate messages
             username = username1
             apiKey = apikey1
 
             to = phoneNumber
-            message = 'Your Request has Been Recieved'
+            # message = 'Your Request has Been Recieved'
 
             gateway = AfricasTalkingGateway(username, apiKey)
 
@@ -143,8 +185,8 @@ def index(request):
 
     # these are message details to be sent to the farmer
 
-    messages = details_generator(found_phonenumbers)
+    message = details_generator(found_phonenumbers)
 
     
     return render(request, 'test.html', {'users':requsted_users,"filtered_products":filtered_products,"list_price":list_price,"list_town":list_town,"list_location":list_location,"results_list":results_list,
-    "found_phonenumbers":found_phonenumbers,"messages":messages})
+    "found_phonenumbers":found_phonenumbers,"message":message})
