@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Product, session_levels
 import datetime
 from django.http import HttpResponse
+from .methods import requested_location, requested_price, requested_town, final_list, details_generator, get_phonenumbers
 
 # Create your views here.
 @csrf_exempt
@@ -82,40 +83,34 @@ def callback(request):
         if level == 6:
             session_level7 = User.objects.get(phonenumber = phoneNumber)
             session_level7.level=7
-            product = Product.objects.create(name=textList[4], quantity=textList[5], price=textList[6], user=user)
+            product = Product.objects.create(type_of_product=textList[0],name=textList[4], quantity=textList[5], price=textList[6], user=user)
             product.save()
             response = "END Your request has been received. \n We will send you a message with contact details of a buyer/seller that matches your request."
             # this are variables to be used by the generate details section
-            current_product = textList[4]
+            current_product = textList[4].lower()
             current_price = textList[6]
-            current_town = textList[3]
-            current_location = textList[2]
+            current_town = textList[3].lower()
+            current_location = textList[2].lower()
             current_phonenumber = phoneNumber
-            current_type = textList[1]
+            current_type = textList[0]
 
             # this is the message generator section that determines the message that will be sent to the current user
+            requested_products = Product.requested_products(current_product)
 
-            requsted_users = User.requested_users('2')
-            requested_products = Product.requested_products('Maize')
-
-            filtered_products = []  # this is list of products that match the current users requirements but belong to users of a different type from the the current user
-            for product in requested_products:
-                if product.user in requsted_users:
-                    filtered_products.append(product)
 
             # this is a list of products which satisfy the price requirements of the user
-            list_price = requested_price(10, 2, filtered_products)
+            list_price = requested_price(current_price, current_type, requested_products)
 
             # this is a list of products that satisfy the location requirements of the current user
-            list_town = requested_town('Nairobi', list_price)
+            list_town = requested_town(current_town, list_price)
 
             # this is a list of products that satisfy the current user's location requirements
 
-            list_location = requested_location('Nairobi', list_price)
+            list_location = requested_location(current_location, list_price)
 
             # this is the final list that always returns atleast three products based on availability of those products
 
-            results_list = final_list(filtered_products, list_price, list_location, list_town)
+            results_list = final_list(requested_products, list_price, list_location, list_town)
 
             # this is a list of phonenumbers that the current users will get
 
@@ -123,48 +118,53 @@ def callback(request):
 
             # these are message details to be sent to the farmer
 
-            message = details_generator(found_phonenumbers)
-            # username = username1
-            # apiKey = apikey1
-            #
-            # to = phoneNumber
-            # message = 'Thank you '+ user.name+ ' for using our services.\n' \
-            #           'This is your entry:\n\n' \
-            #           'Product Name: '+ textList[4] + '\n' \
-            #           'Quantity: '+ textList[5] + '\n' \
-            #           'Price: ' + textList[6] + '\n\n' \
-            #           'If this entry is accurate, we will send you information matching your request.\n' \
-            #                                     'If you would like to make another entry dial. \n*384*10446#'
-            #
-            # gateway = AfricasTalkingGateway(username, apiKey)
-            #
-            # try:
-            #     # That's it, hit send and we'll take care of the rest.
-            #
-            #     results = gateway.sendMessage(to, message)
-            #
-            #     for recipient in results:
-            #         # status is either "Success" or "error message"
-            #         print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
-            #                                                             recipient['status'],
-            #                                                             recipient['messageId'],
-            #                                                             recipient['cost']))
-            #
-            # except AfricasTalkingGatewayException as e:
-            #     print('Encountered an error while sending: %s' % str(e))
+            contacts = details_generator(found_phonenumbers)
+            print(contacts)
+
+            username = username1
+            apiKey = apikey1
+
+            to = phoneNumber
+            message = 'Thank you '+ user.name + ' for using our services.\n' \
+                      'This is your entry:\n\n' \
+                      'Product Name: '+ textList[4] + '\n' \
+                      'Quantity: '+ textList[5] + '\n' \
+                      'Price: ' + textList[6] + '\n\n' \
+                      'If this entry is accurate, we will send you information matching your request.\n' \
+                                                'If you would like to make another entry dial. \n*384*10446#'
+            message1 = 'Find below contact the numbers below matching your request: \n' + contacts
+
+
+            gateway = AfricasTalkingGateway(username, apiKey)
+
+            try:
+                # That's it, hit send and we'll take care of the rest.
+
+                results = gateway.sendMessage(to, message)
+                results1 = gateway.sendMessage(to, message1)
+
+                for recipient in results:
+                    # status is either "Success" or "error message"
+                    print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
+                                                                        recipient['status'],
+                                                                        recipient['messageId'],
+                                                                        recipient['cost']))
+
+                for recipient in results1:
+                    # status is either "Success" or "error message"
+                    print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
+                                                                        recipient['status'],
+                                                                        recipient['messageId'],
+                                                                        recipient['cost']))
+
+            except AfricasTalkingGatewayException as e:
+                print('Encountered an error while sending: %s' % str(e))
+
 
             return HttpResponse(response, content_type='text/plain')
 
 
 
 def index(request):
-    products = Product.find_product('banana')
-    buyers = User.find_buyer()
-    sellers = User.find_seller()
-
-
-    
-
-
 
     return render(request, 'index.html')

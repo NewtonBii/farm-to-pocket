@@ -2,18 +2,18 @@ def requested_price(price, user_type, list_products):
     '''
     Method that filters based on the price requirements of the current user
     '''
-    if user_type == 1:
-        requested_type = 2
+    if user_type == '1':
+        requested_type = '2'
     else:
-        requested_type = 1
+        requested_type = '1'
     list_price = []  # list of produce that match the current user's price requirements
-    if requested_type == 2:
+    if requested_type == '2':
         for product in list_products:
-            if product.price <= price:
+            if product.price <= int(price):
                 list_price.append(product)
-    elif requested_type == 1:
+    elif requested_type == '1':
         for product in list_products:
-            if product.price >= price:
+            if product.price >= int(price):
                 list_price.append(product)
 
     # you can add an else method here later to handle exceptions
@@ -63,9 +63,9 @@ def get_phonenumbers(final_list):
     Method that takes in a list of objects and returns the phonenumbers of the
     users associated with those products as a string
     '''
-    phonenumbers = {product.user.name: str(product.user.phonenumber) + ',' +
-                                       str(product.user.nearest_town) + ',' + str(product.user.location) + '@' +
-                                       str(product.price) + ' ' for product in final_list}
+    phonenumbers = {product.user.name: str(product.user.phonenumber) + '\n' +
+                                       str(product.user.nearest_town) + '\n' + str(product.user.location) + "\n" + str(product.name)+ '@' +
+                                       str(product.price) + '\n' for product in final_list}
     return phonenumbers
 
 
@@ -75,8 +75,8 @@ def details_generator(found_phonenumbers):
     '''
     string = ''
     for item in found_phonenumbers:
-        string += item + ' ' + ':'
-        string += found_phonenumbers[item] + ',' + ' '
+        string += item + ' '
+        string += found_phonenumbers[item] + '\n' + ' '
 
     for item in found_phonenumbers:
         details = []
