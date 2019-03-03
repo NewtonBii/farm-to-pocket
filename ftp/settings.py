@@ -78,9 +78,10 @@ WSGI_APPLICATION = 'ftp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'ftp',
-        'USER':'newton',
-        'PASSWORD':'newton'
+        'NAME':'farm_to_pocket',
+        'USER':'postgres',
+        'PASSWORD':'postgres',
+        'HOST': 'localhost'
     }
 }
 

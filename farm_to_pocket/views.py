@@ -137,6 +137,8 @@ def callback(request):
 
             gateway = AfricasTalkingGateway(username, apiKey)
 
+            #Code section that calls the africa's stalking api to send sms to users
+
             try:
                 # That's it, hit send and we'll take care of the rest.
 
