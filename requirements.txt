@@ -4,7 +4,7 @@ chardet==3.0.4
 idna==2.6
 pytz==2018.3
 requests==2.20.0
-urllib3==1.23
+urllib3==1.26.5
 whitenoise==3.3.1
 astroid==1.5.3
 confusable-homoglyphs==3.0.0
